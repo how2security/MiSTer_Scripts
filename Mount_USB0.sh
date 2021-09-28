@@ -23,7 +23,8 @@ banner
 
 ## Validando se eh o usuario root
 if [ $(id -u) != 0 ] ; then
-	echo -e "$vermelho[!]$fim Usuario sem permissao de root..."
+	echo -e "$vermelho[!]$fim Usuario sem permissao de root...\n"
+	read -p "Pressione [qualquer tecla] para voltar para o menu OSD do MiSTer..."
 	exit 1
 fi
 
@@ -36,13 +37,18 @@ else
 	echo -e "/dev/sda1\t/media/usb0\texfat\tdefaults,rw,exec,nofail\t0\t0" >> /etc/fstab
 	if grep -qow usb0 /etc/fstab ; then
 		echo -e "$verde[+]$fim Registro criado com sucesso..."
+		echo -e "\n"
+		read -p "Pressione [qualquer tecla] para reiniciar o MiSTer..."
+		reboot
 	else
 		echo -e "$vermelho[-]$fim Erro ao tentar criar o registro..."
+		echo -e "\n"
+		read -p "Pressione [qualquer tecla] para voltar para o menu OSD do MiSTer..."	
+		exit 1
 	fi
 fi
 
 echo -e "\n"
 read -p "Pressione [qualquer tecla] para voltar para o menu OSD do MiSTer..."
-
 exit 0
 
